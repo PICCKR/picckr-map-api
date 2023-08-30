@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { allOrders, orderById } from "./query.js";
+import { createOrder } from "./mutation.js";
 
 const orderRouter = Router();
 
@@ -29,8 +31,11 @@ function confirmDelivery(req, res) {
   });
 }
 
-orderRouter.post("/accept-order/:orderId/:driverId", acceptOrder);
-orderRouter.post("/reject-order/:orderId/:driverId", rejectOrder);
-orderRouter.post("/confirm-delivery/:orderId/:driverId", confirmDelivery);
+orderRouter.get("/", allOrders);
+orderRouter.post("/", createOrder);
+orderRouter.get("/:id", orderById);
+// orderRouter.post("/accept-order/:orderId/:driverId", acceptOrder);
+// orderRouter.post("/reject-order/:orderId/:driverId", rejectOrder);
+// orderRouter.post("/confirm-delivery/:orderId/:driverId", confirmDelivery);
 
 export default orderRouter;
