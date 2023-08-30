@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { findNearbyLocations } from "./mutation.js";
 
 const locationRouter = Router();
 
@@ -20,6 +21,7 @@ function trackDriver(req, res) {
 }
 
 locationRouter.get("/nearby-drivers", fetchNearbyDriversLocations);
+locationRouter.post("/nearby-locations", findNearbyLocations);
 locationRouter.get("/track-driver/:driverId", trackDriver);
 
 export default locationRouter;
