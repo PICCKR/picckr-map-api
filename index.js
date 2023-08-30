@@ -4,6 +4,7 @@ import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import routers from "./routers/index.js";
+import swaggerDocs from "./utils/swagger.js";
 
 const app = express();
 dotenv.config();
@@ -43,4 +44,5 @@ io.on("connection", (socket) => {
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  swaggerDocs(app, PORT);
 });
