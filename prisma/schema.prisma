@@ -18,7 +18,7 @@ enum Status {
 }
 
 model Order {
-    id        Int      @id @map("_id")
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     bookingId Int
