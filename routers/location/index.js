@@ -20,8 +20,8 @@ function trackDriver(req, res) {
   });
 }
 
-locationRouter.get("/nearby-drivers", fetchNearbyDriversLocations);
+// locationRouter.get("/nearby-drivers", fetchNearbyDriversLocations);
 locationRouter.post("/nearby-locations", findNearbyLocations);
-locationRouter.get("/track-driver/:driverId", trackDriver);
+// locationRouter.get("/track-driver/:driverId", trackDriver);
 
 export default locationRouter;
