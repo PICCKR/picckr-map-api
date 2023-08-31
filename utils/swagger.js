@@ -3,10 +3,12 @@ import swaggerJsdoc from "swagger-jsdoc";
 
 const options = {
   definition: {
-    openapi: "3.0.0",
+    openapi: "3.0.2",
     info: {
-      title: "REST API MAP DOCS",
+      title: "REST API PicckR map",
       version: "1.0.0",
+      description:
+        "This is the REST API for PicckR map to manage orders through all the process from ordering, tracking and delivery",
     },
     basePath: "/api",
     components: {
@@ -24,7 +26,7 @@ const options = {
       },
     ],
   },
-  apis: ["**/routers/*.js", "**/routers/**/*.js"],
+  apis: ["**/routers/*.yaml", "**/routers/**/*.yaml"],
 };
 
 const SwaggerSpec = swaggerJsdoc(options);

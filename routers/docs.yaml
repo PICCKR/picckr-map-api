@@ -1,0 +1,8 @@
+paths:
+  /api:
+    get:
+      summary: Welcome to the PicckR Map API
+      tags: [Welcome]
+      responses:
+        200:
+          description: message "Welcome to the PicckR Map API"
