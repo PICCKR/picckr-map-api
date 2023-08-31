@@ -9,12 +9,19 @@ const allOrders = async (req, res) => {
 
 const orderById = async (req, res) => {
   const { id } = req.params;
-  const order = await prisma.order.findUnique({
-    where: {
-      id: id,
-    },
-  });
-  return res.json(order);
+  try {
+    const order = await prisma.order.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return res.json(order);
+  } catch (err) {
+    return res.status(404).json({
+      message: "Order not found",
+      error: err.message,
+    });
+  }
 };
 
 export { allOrders, orderById };

@@ -4,12 +4,29 @@ const prisma = new PrismaClient();
 
 const createOrder = async (req, res) => {
   const { bookingId } = req.body;
-  const order = await prisma.order.create({
-    data: {
+  const orderExists = await prisma.order.findFirst({
+    where: {
       bookingId: bookingId,
     },
   });
-  return res.json(order);
+  if (orderExists) {
+    return res.status(409).json({
+      message: `Order with bookingId ${bookingId} already exists`,
+    });
+  }
+  try {
+    const order = await prisma.order.create({
+      data: {
+        bookingId: bookingId,
+      },
+    });
+    return res.json(order);
+  } catch (error) {
+    return res.status(400).json({
+      message: `Order with bookingId ${bookingId} was not created`,
+      error: error,
+    });
+  }
 };
 
 const sendOrder = async (req, res) => {
@@ -43,4 +60,23 @@ const completeOrder = async (req, res) => {
   return res.json(order);
 };
 
-export { createOrder };
+const deleteOrder = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await prisma.order.delete({
+      where: {
+        id: id,
+      },
+    });
+    return res.json({
+      message: `Order with id ${id} was deleted`,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: `Order with id ${id} was not deleted`,
+      error: error,
+    });
+  }
+};
+
+export { createOrder, deleteOrder };
