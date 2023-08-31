@@ -73,7 +73,10 @@ const deleteDriver = async (req, res) => {
     });
     res.json(driver);
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json({
+      message: "Driver not found",
+      error: error,
+    });
   }
 };
 
