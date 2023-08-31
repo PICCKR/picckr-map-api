@@ -1,0 +1,177 @@
+paths:
+  /api/driver:
+    get:
+      summary: Get all drivers
+      tags: [Driver]
+      responses:
+        200:
+          description: list of drivers
+        500:
+          description: message "Internal server error"
+    post:
+      summary: Create a driver
+      tags: [Driver]
+      requestBody:
+        description: The driver to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDriverInput'
+      responses:
+        201:
+          description: The driver created
+        409:
+          description: message "Driver already exists"
+        500:
+          description: message "Internal server error"
+  /api/driver/id/{identifier}:
+    get:
+      summary: Get driver by identifier
+      tags: [Driver]
+      parameters:
+        - name: identifier
+          in: path
+          description: The driver identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The driver object
+        404:
+          description: message "Driver not found"
+        500:
+          description: message "Internal server error"
+    patch:
+      summary: Update driver location
+      tags: [Driver]
+      parameters:
+        - name: identifier
+          in: path
+          description: The driver identifier
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The driver location to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: list
+              description: The driver location
+              items:
+                type: number
+              minItems: 2
+              maxItems: 2
+      responses:
+        200:
+          description: The driver object
+        404:
+          description: message "Driver not found"
+        500:
+          description: message "Internal server error"
+    delete:
+      summary: Delete driver by identifier
+      tags: [Driver]
+      parameters:
+        - name: identifier
+          in: path
+          description: The driver identifier
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: The driver object
+        404:
+          description: message "Driver not found" and an error object
+  /api/driver/locations:
+    get:
+      summary: Get all drivers locations
+      tags: [Driver]
+      responses:
+        200:
+          description: list of drivers locations with their identifiers
+        500:
+          description: message "Internal server error"
+  /api/driver/id/{identifier}/location:
+    patch:
+      summary: Update driver location
+      tags: [Driver]
+      parameters:
+        - name: identifier
+          in: path
+          description: The driver identifier
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The driver location to update
+        required: true
+        content:
+          application/json:
+            schema:
+              type: list
+              description: The driver location
+              items:
+                type: number
+              minItems: 2
+              maxItems: 2
+      responses:
+        200:
+          description: The driver new location
+        400:
+          description: message "Location is not valid"
+        500:
+          description: message "Internal server error"
+
+components:
+  schemas:
+    Driver:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The driver id
+        identifier:
+          type: string
+          description: The driver identifier from the other Driver object from the other microservice
+        location:
+          type: list
+          description: The driver location
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+        orders:
+          type: list
+          description: The driver orders
+          items:
+            type: string
+            description: The orders ids
+        createdAt:
+          type: string
+          description: The driver created date
+        updatedAt:
+          type: string
+          description: The driver updated date
+      required:
+        - id
+        - identifier
+    CreateDriverInput:
+      type: object
+      properties:
+        identifier:
+          type: string
+          description: The driver identifier from the other Driver object from the other microservice
+        location:
+          type: list
+          description: The driver location
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+      required:
+        - identifier
