@@ -35,7 +35,7 @@ const options = {
     servers: [
       {
         url: process.env.MODE == "DEV" ? "http://localhost:5050/" : "https://picckr-rest-api.vercel.app/",
-        description: "PicckR REST API on Vercel",
+        description: process.env.MODE == "DEV" ? "PicckR REST API on Local Machine" : "PicckR REST API on Vercel",
       },
     ],
   },
