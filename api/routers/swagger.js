@@ -3,6 +3,9 @@ import swaggerJsdoc from "swagger-jsdoc";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import { Router } from "express";
+
+const swaggerRouter = Router();
 
 dotenv.config();
 
@@ -48,24 +51,26 @@ const SwaggerSpec = swaggerJsdoc(options);
 function swaggerDocs(app, port) {
   // swagger page
   app.use(
-    "/api/docs",
+    "/docs",
     swaggerUi.serve,
     swaggerUi.setup(SwaggerSpec)
   );
 
   // Save swagger docs .json
-  app.use("/api/swagger.json", (req, res) => {
+  swaggerRouter.get("/swagger.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(SwaggerSpec);
   });
   
-  app.use("/api/assets/swagger.json", (req, res) => {
+  swaggerRouter.get("/assets/swagger.json", (req, res) => {
     const jsonFilePath = path.join(__dirname, "../../assets", "swagger.json");
     // Send the JSON file as a response
     res.sendFile(jsonFilePath);
   });
 
-  console.log(`Swagger Docs available at http://localhost:${port}/api/docs`);
+  app.use("/swagger", swaggerRouter);
+
+  console.log(`Swagger Docs available at http://localhost:${port}/docs`);
 }
 
 export default swaggerDocs;
