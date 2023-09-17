@@ -1,5 +1,10 @@
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const options = {
   definition: {
@@ -10,7 +15,6 @@ const options = {
       description:
         "This is the REST API for PicckR map to manage orders through all the process from ordering, tracking and delivery",
     },
-    basePath: "/api",
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -25,23 +29,42 @@ const options = {
         bearerAuth: [],
       },
     ],
+    servers: [
+      {
+        // url: "https://picckr-rest-api.vercel.app/",
+        url: "http://localhost:5050/",
+        description: "PicckR REST API on Vercel",
+      },
+    ],
   },
   apis: ["**/routers/*.yaml", "**/routers/**/*.yaml"],
 };
+
 
 const SwaggerSpec = swaggerJsdoc(options);
 
 function swaggerDocs(app, port) {
   // swagger page
-  app.use("/docs", swaggerUi.serve, swaggerUi.setup(SwaggerSpec));
+  app.use(
+    "/docs",
+    swaggerUi.serve,
+    swaggerUi.setup(SwaggerSpec)
+  );
 
-  // docs in json format
-  app.get("/docs.json", (req, res) => {
+  // Save swagger docs .json
+  app.use("/swagger.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(SwaggerSpec);
   });
+  
+  app.use("/static/swagger.json", (req, res) => {
+    const jsonFilePath = path.join(__dirname, "../../static", "swagger.json");
+  
+    // Send the JSON file as a response
+    res.sendFile(jsonFilePath);
+  });
 
-  console.log(`Swagger docs available at http://localhost:${port}/docs`);
+  console.log(`Swagger Docs available at http://localhost:${port}/docs`);
 }
 
 export default swaggerDocs;

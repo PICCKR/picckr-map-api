@@ -4,12 +4,13 @@ import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import routers from "./routers/index.js";
-import swaggerDocs from "./utils/swagger.js";
+import swaggerDocs from "./routers/swagger.js";
 
 const app = express();
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
+const MODE = process.env.MODE || "PROD";
 
 const server = http.createServer(app);
 
@@ -43,6 +44,6 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT} in ${MODE} mode`);
   swaggerDocs(app, PORT);
 });

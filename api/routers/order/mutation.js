@@ -1,6 +1,15 @@
 import { PrismaClient, Reply, Status } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import dotenv from "dotenv";
+
+dotenv.config();
+const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.MODE == "DEV" ? process.env.DATABASE_URL : process.env.PROD_DATABASE_URL,
+      },
+    },
+  });
 
 const createOrder = async (req, res) => {
   const { bookingId } = req.body;

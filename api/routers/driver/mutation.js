@@ -1,6 +1,15 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import dotenv from "dotenv";
+
+dotenv.config();
+const prisma = new PrismaClient({
+    datasources: {
+      db: {
+        url: process.env.MODE == "DEV" ? process.env.DATABASE_URL : process.env.PROD_DATABASE_URL,
+      },
+    },
+  });
 
 const createDriver = async (req, res) => {
   const { identifier } = req.body;
