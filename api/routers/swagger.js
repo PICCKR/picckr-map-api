@@ -63,7 +63,7 @@ function swaggerDocs(app, port) {
   });
   
   swaggerRouter.get("/assets/swagger.json", (req, res) => {
-    const jsonFilePath = path.join(__dirname, "../assets", "swagger.json");
+    const jsonFilePath = path.join(__dirname, "../../assets", "swagger.json");
     // Send the JSON file as a response
     res.sendFile(jsonFilePath);
   });
