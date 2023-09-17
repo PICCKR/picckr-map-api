@@ -48,24 +48,24 @@ const SwaggerSpec = swaggerJsdoc(options);
 function swaggerDocs(app, port) {
   // swagger page
   app.use(
-    "/docs",
+    "/api/docs",
     swaggerUi.serve,
     swaggerUi.setup(SwaggerSpec)
   );
 
   // Save swagger docs .json
-  app.use("/swagger.json", (req, res) => {
+  app.use("/api/swagger.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(SwaggerSpec);
   });
   
-  app.use("/assets/swagger.json", (req, res) => {
+  app.use("/api/assets/swagger.json", (req, res) => {
     const jsonFilePath = path.join(__dirname, "../../assets", "swagger.json");
     // Send the JSON file as a response
     res.sendFile(jsonFilePath);
   });
 
-  console.log(`Swagger Docs available at http://localhost:${port}/docs`);
+  console.log(`Swagger Docs available at http://localhost:${port}/api/docs`);
 }
 
 export default swaggerDocs;
