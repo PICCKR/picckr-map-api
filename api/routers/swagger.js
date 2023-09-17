@@ -57,8 +57,8 @@ function swaggerDocs(app, port) {
     res.send(SwaggerSpec);
   });
   
-  app.use("/static/swagger.json", (req, res) => {
-    const jsonFilePath = path.join(__dirname, "../../static", "swagger.json");
+  app.use("/assets/swagger.json", (req, res) => {
+    const jsonFilePath = path.join(__dirname, "../../assets", "swagger.json");
   
     // Send the JSON file as a response
     res.sendFile(jsonFilePath);
