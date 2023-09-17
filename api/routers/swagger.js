@@ -2,6 +2,9 @@ import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -11,7 +14,7 @@ const options = {
     openapi: "3.0.2",
     info: {
       title: "REST API PicckR map",
-      version: "1.0.0",
+      version: "1.1.0",
       description:
         "This is the REST API for PicckR map to manage orders through all the process from ordering, tracking and delivery",
     },
@@ -31,8 +34,7 @@ const options = {
     ],
     servers: [
       {
-        // url: "https://picckr-rest-api.vercel.app/",
-        url: "http://localhost:5050/",
+        url: process.env.MODE == "DEV" ? "http://localhost:5050/" : "https://picckr-rest-api.vercel.app/",
         description: "PicckR REST API on Vercel",
       },
     ],
@@ -59,7 +61,6 @@ function swaggerDocs(app, port) {
   
   app.use("/assets/swagger.json", (req, res) => {
     const jsonFilePath = path.join(__dirname, "../../assets", "swagger.json");
-  
     // Send the JSON file as a response
     res.sendFile(jsonFilePath);
   });
