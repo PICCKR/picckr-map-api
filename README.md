@@ -10,6 +10,8 @@
 
    2. If the `DRIVER` `ACCEPT` the order, **PicckR MAP API** will `SAVE_ACCEPTED_ORDER_IN_DATABASE` and send a `PUSH_NOTIFICATION` to the `USER` to share with him the `DRIVER` `CONTACT_INFORMATION` and open a `CHAT_ROOM` between them.
 
+   3. An auto-generated `CONFIRMATION_CODE` will be generated and shared with the `USER` and the `DRIVER` to be used as a **confirmation** for the `DRIVER` to make sure that the `RECEIVER` is the `DEDICATED_USER` for the order.
+
 3. **PicckR MAP API** will then `SAVE_ORDER_IN_DATABASE` and `SAVE_ORDER_STATUS_IN_DATABASE` as `PENDING`.
 
 4. **PicckR MAP API** will then `TRACK_DRIVER_LOCATION` and display it on the map for the `USER`.
@@ -27,6 +29,7 @@
 - [x] _PicckR MAP API_ `SEND_PUSH_NOTIFICATION` to the `DRIVERS` to `ACCEPT` or `DECLINE` the order.
 - [x] _PicckR MAP API_ `SAVE_DECLINED_ORDER_IN_DATABASE` and keep waiting for the next `DRIVER` to `ACCEPT` the order.
 - [x] _PicckR MAP API_ `SAVE_ACCEPTED_ORDER_IN_DATABASE` and send a `PUSH_NOTIFICATION` to the `USER` to share with him the `DRIVER` `CONTACT_INFORMATION` and open a `CHAT_ROOM` between them.
+- [ ] _PicckR MAP API_ `GENERATE_CONFIRMATION_CODE` and share it with the `USER` and the `DRIVER`.
 - [ ] _PicckR MAP API_ `SAVE_ORDER_IN_DATABASE` and `SAVE_ORDER_STATUS_IN_DATABASE` as `PENDING`.
 - [ ] _PicckR MAP API_ `TRACK_DRIVER_LOCATION` and display it on the map for the `USER`.
 - [ ] _PicckR MAP API_ `CHANGE_ORDER_STATUS_IN_DATABASE` to `ARRIVED` when the `DRIVER` `ARRIVE` to the `DESTINATION_LOCATION`.
