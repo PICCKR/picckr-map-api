@@ -7,32 +7,66 @@ datasource db {
     url      = env("PROD_DATABASE_URL")
 }
 
-enum Reply {
-    REJECTED
-    ACCEPTED
-}
+// enum Reply {
+//     REJECTED
+//     ACCEPTED
+// }
 
-enum Status {
-    CANCLED
+// enum Status {
+//     CANCLED
+//     COMPLETED
+// }
+
+// model Order {
+//     id        String   @id @default(auto()) @map("_id") @db.ObjectId
+//     createdAt DateTime @default(now())
+//     updatedAt DateTime @updatedAt
+//     bookingId String   @unique @db.ObjectId
+//     driverId  String?  @db.ObjectId
+//     reply     Reply?
+//     status    Status?
+//     driver    Driver?  @relation(fields: [driverId], references: [id])
+// }
+
+// model Driver {
+//     id         String   @id @default(auto()) @map("_id") @db.ObjectId
+//     createdAt  DateTime @default(now())
+//     updatedAt  DateTime @updatedAt
+//     identifier String   @unique @db.ObjectId
+//     location   String
+//     orders     Order[]
+// }
+
+enum OrderStatus {
+    REQUESTING
+    PENDING
+    ACCEPTED_BY_DRIVER
+    ACCEPTED_BY_SENDER
+    DECLINED_BY_DRIVER
+    DECLINED_BY_SENDER
+    CANCELED_BY_DRIVER
+    CANCELED_BY_SENDER
     COMPLETED
 }
 
-model Order {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    bookingId String   @unique @db.ObjectId
-    driverId  String?  @db.ObjectId
-    reply     Reply?
-    status    Status?
-    driver    Driver?  @relation(fields: [driverId], references: [id])
+enum PackageStatus {
+    HEADING_TO_PICKUP
+    HEADING_TO_RECIPIENT_DESTINATION
+    DELIVERED
+    CONFIRMED
 }
 
-model Driver {
-    id         String   @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
-    identifier String   @unique @db.ObjectId
-    location   String
-    orders     Order[]
+model Tracker {
+    id                String         @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt         DateTime       @default(now())
+    updatedAt         DateTime       @updatedAt
+    senderId          String
+    driverId          String?
+    bookingId         String?
+    senderLocation    String
+    recipientLocation String
+    orderStatus       OrderStatus    @default(REQUESTING)
+    packageStatus     PackageStatus?
+    pinCode           String?
+    chatRoomId        String?        @unique @db.ObjectId
 }

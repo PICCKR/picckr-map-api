@@ -8,43 +8,96 @@ Don't make any dynamic field to be enum, because it will be hard to update it in
 
 ## Workflow
 
-1. **User** creates a _PACKAGE_ `createPackage`.
+1. **PicckR Map API** creates a _TRACKER_ `createTracker`.
 
-2. **User** creates an _ORDER_ `createOrder`.
-
-   1. **User** specifies the _RECIPIENT_DETAILS_.
-
-   2. **User** specifies the _SENDER_DETAILS_.
-
-3. _(FIRST SCENARIO)_ **PicckR MAP API** finds nearby _DRIVERs_ `findNearbyDrivers`.
+2. **PicckR MAP API** finds nearby _DRIVERs_ `findNearbyDrivers`.
 
    1. **User** selects a _DRIVER_ `acceptDriver`. _(TO BE UPDATED AFTER GETTING RESPONSE FROM PROJECT OWNER)_
 
-4. _(SECOND SCENARIO)_ **User** requests a specific _DRIVER_ `requrestDriver`.
+3. _(SECOND SCENARIO)_ **User** requests a specific _DRIVER_ `requrestDriver`.
 
-5. _(MAY HAPPEN)_ **User** declines the _DRIVER_ `declineDriver`. _(TO BE UPDATED AFTER GETTING RESPONSE FROM PROJECT OWNER)_
+4. _(MAY HAPPEN)_ **User** declines the _DRIVER_ `declineDriver`. _(TO BE UPDATED AFTER GETTING RESPONSE FROM PROJECT OWNER)_
 
-6. **PicckR MAP API** updates _DRIVER_ status to _UNAVAILABLE_ `updateDriverStatus`.
+5. **PicckR MAP API** updates _DRIVER_ status to _UNAVAILABLE_ `updateDriverStatus`.
 
-7. **PicckR MAP API** generates a _TRANSACTION_PIN_CODE_ `generateTransactionPinCode`.
+6. **PicckR MAP API** generates a _TRANSACTION_PIN_CODE_ `generateTransactionPinCode`.
 
-8. **PicckR MAP API** creates a _PRIVATE_CHAT_ROOM_ `createPrivateChatRoom`.
+7. **PicckR MAP API** creates a _PRIVATE_CHAT_ROOM_ `createPrivateChatRoom`.
 
-9. **Driver** updates order status to _HEADING_TO_PICKUP_ `updateOrderStatus`.
+8. **Driver** updates order status to _HEADING_TO_PICKUP_ `updateOrderStatus`.
 
-10. **Driver** updates order status to _HEADING_TO_RECIPIENT_DESTINATION_ `updateOrderStatus`.
+9. **Driver** updates order status to _HEADING_TO_RECIPIENT_DESTINATION_ `updateOrderStatus`.
 
-11. _(MAY HAPPEN)_ **User** creates a _DISPUTE_ `createDispute`.
+10. _(MAY HAPPEN)_ **User** creates a _DISPUTE_ `createDispute`.
 
-12. **Driver** updates order status to _DELIVERED_ `updateOrderStatus`.
+11. **Driver** updates order status to _DELIVERED_ `updateOrderStatus`.
 
-13. **User** updates order status to _COMPLETED_ `updateOrderStatus`.
+12. **User** updates order status to _COMPLETED_ `updateOrderStatus`.
 
-14. **PicckR MAP API** closes _PRIVATE_CHAT_ROOM_ `closePrivateChatRoom`.
+13. **PicckR MAP API** closes _PRIVATE_CHAT_ROOM_ `closePrivateChatRoom`.
 
-15. **PicckR MAP API** updates _DRIVER_ status to _AVAILABLE_ `updateDriverStatus`.
+14. **PicckR MAP API** updates _DRIVER_ status to _AVAILABLE_ `updateDriverStatus`.
 
-16. **User** rates the _DRIVER_ `rateDriver`.
+15. **User** rates the _DRIVER_ `rateDriver`.
+
+## Functions
+
+### 1. createTracker
+
+- `user_id`: _(string)_
+- `driver_id`?: _(string)_
+- `booking_id`: _(string)_
+- `sender_location`: _(string)_
+- `recipient_location`: _(string)_
+
+### 2. findNearbyDrivers
+
+- `sender_location`: _(string)_
+- `require_availability`?: _(boolean)_ `true` | `false`
+
+### 3. requestDriver
+
+- `user_id`: _(string)_
+- `driver_id`: _(string)_
+- `booking_id`: _(string)_
+
+### 4. saveDeclinedRequest
+
+- `user_id`: _(string)_
+- `driver_id`: _(string)_
+- `booking_id`: _(string)_
+
+### 5. saveTimeoutRequest
+
+- `user_id`: _(string)_
+- `driver_id`: _(string)_
+- `booking_id`: _(string)_
+- `timeout`: _(number)_
+
+### 6. saveAcceptedRequest
+
+- `user_id`: _(string)_
+- `driver_id`: _(string)_
+- `booking_id`: _(string)_
+
+### 7. driverSendProposal
+
+- `driver_id`: _(string)_
+- `booking_id`: _(string)_
+
+## Entities
+
+### 1. Tracker
+
+- `user_id`: _(string)_
+- `driver_id`: _(string)_
+- `booking_id`: _(string)_
+- `sender_location`: _(string)_
+- `recipient_location`: _(string)_
+- `order_status`: _(string)_ `REQUESTING` | `PENDING` | `ACCEPTED_BY_SENDER` | `ACCEPTED_BY_DRIVER` | `DECLINED_BY_SENDER` | `DECLINED_BY_DRIVER` | `COMPLETED` | `CANCELED_BY_SENDER` | `CANCELED_BY_DRIVER`
+- `package_status`: _(string)_ `HEADING_TO_PICKUP` | `HEADING_TO_RECIPIENT_DESTINATION` | `DELIVERED` | `CONFIRMED`
+- `pin_code`: _(string)_
+- `chatroom_id`: _(string)_
 
 ## Entities
 
