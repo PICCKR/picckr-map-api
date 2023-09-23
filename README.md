@@ -1,4 +1,4 @@
-## Description for PicckR MAP API
+## Description for PicckR Tracker API
 
 Workflow, functions, entities and questions.
 
