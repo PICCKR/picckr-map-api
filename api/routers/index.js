@@ -1,21 +1,17 @@
 import { Router } from "express";
 import path, { dirname } from "path";
 import { fileURLToPath } from "url";
-import locationRouter from "./location/index.js";
-// import chatRouter from "./chat/index.js";
-import orderRouter from "./order/index.js";
-import driverRouter from "./driver/index.js";
+import trackerRouter from "./tracker/index.js";
 import { SwaggerSpec } from "./swagger.js";
+import declineRouter from "./decline/index.js";
 
 const routers = Router();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-routers.use("/location", locationRouter);
-// routers.use("/chat", chatRouter);
-routers.use("/order", orderRouter);
-routers.use("/driver", driverRouter);
+routers.use("/tracker", trackerRouter);
+routers.use("/decline", declineRouter);
 
 routers.get("/", (req, res) => {
   return res.json({

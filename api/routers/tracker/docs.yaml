@@ -1,0 +1,178 @@
+paths:
+  /api/tracker:
+    post:
+      tags: [Tracker]
+      summary: Create a new tracker
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTrackerInput"
+      responses:
+        200:
+          description: Created tracker
+        500:
+          description: Error message
+  /api/tracker/nearbydrivers/{max}:
+    post:
+      tags: [Tracker]
+      summary: Get nearby drivers
+      parameters:
+        - name: max
+          in: path
+          required: true
+          description: The max number of nearby drivers
+          schema:
+            type: number
+          example: 5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FindNearbyDriversInput"
+      responses:
+        200:
+          description: Nearby drivers list
+        500:
+          description: Error message
+  /api/tracker/id/{id}:
+    patch:
+      tags: [Tracker]
+      summary: Update a tracker
+      description: Hi i m the description
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The tracker id
+          schema:
+            type: string
+          example: 5f7b1b8a9d6b2a0017a0d1b1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTrackerInput"
+      responses:
+        200:
+          description: Updated tracker
+        500:
+          description: Error message
+
+components:
+  schemas:
+    CreateTrackerInput:
+      type: object
+      properties:
+        senderId:
+          type: string
+          description: The sender id
+        bookingId:
+          type: string
+          description: The created booking id
+        senderLocation:
+          type: string
+          description: The sender location
+        recipientLocation:
+          type: string
+          description: The recipient location
+      example:
+        senderId: "1"
+        bookingId: "1"
+        senderLocation: "33.958279, -6.854981"
+        recipientLocation: "33.961024, -6.861127"
+    FindNearbyDriversInput:
+      type: object
+      properties:
+        senderLocation:
+          type: string
+          description: The sender location
+        driversLocations:
+          type: array
+          description: The drivers locations
+          items:
+            type: object
+            properties:
+              driverId:
+                type: string
+                description: The driver id
+              location:
+                type: string
+                description: The driver location
+      example:
+        senderLocation: "33.958279, -6.854981"
+        driversLocations:
+          [
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f7a",
+              location: "33.957408, -6.860325",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f7b",
+              location: "33.958279, -6.854981",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f7c",
+              location: "33.961569, -6.856268",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f7d",
+              location: "33.961024, -6.861127",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f7e",
+              location: "33.963202, -6.857778",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f7f",
+              location: "33.963366, -6.854009",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f80",
+              location: "33.961569, -6.852223",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f81",
+              location: "33.958867, -6.853733",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f82",
+              location: "33.956507, -6.854499",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f83",
+              location: "33.963426, -6.853392",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f84",
+              location: "33.964782, -6.858760",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f85",
+              location: "33.963371, -6.864508",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f86",
+              location: "33.957918, -6.850336",
+            },
+            {
+              driverId: "60aeb24e4f9a9d001c3a1f87",
+              location: "33.958603, -6.865252",
+            },
+          ]
+    UpdateTrackerInput:
+      type: object
+      properties:
+        driverId:
+          type: string
+          description: The driver id
+        orderStatus:
+          type: string
+          description: PENDING | COMPLETED
+        packageStatus:
+          type: string
+          description: HEADING_TO_PICKUP | HEADING_TO_RECIPIENT_DESTINATION | DELIVERED | CONFIRMED
+      example:
+        driverId: "60aeb24e4f9a9d001c3a1f7a"
+        orderStatus: "PENDING"
+        packageStatus: "HEADING_TO_PICKUP"

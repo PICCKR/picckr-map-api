@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
     provider = "mongodb"
-    url      = env("PROD_DATABASE_URL")
+    url      = env("DATABASE_URL")
 }
 
 // enum Reply {
@@ -56,17 +56,51 @@ enum PackageStatus {
     CONFIRMED
 }
 
+enum DeclinedBy {
+    DRIVER
+    SENDER
+    TIMEOUT
+}
+
+model Decline {
+    id         String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+    declinedBy DeclinedBy
+    spentTime  Int
+    trackerId  String
+    driverId   String
+}
+
 model Tracker {
     id                String         @id @default(auto()) @map("_id") @db.ObjectId
     createdAt         DateTime       @default(now())
     updatedAt         DateTime       @updatedAt
     senderId          String
-    driverId          String?
-    bookingId         String?
+    bookingId         String
     senderLocation    String
     recipientLocation String
     orderStatus       OrderStatus    @default(REQUESTING)
+    driverId          String?
+    spentTime         Int?           @default(0)
     packageStatus     PackageStatus?
-    pinCode           String?
-    chatRoomId        String?        @unique @db.ObjectId
+    pinCode           Int?
+}
+
+model ChatRoom {
+    id        String    @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    trackerId String    @unique
+    messages  Message[]
+}
+
+model Message {
+    id         String    @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    content    String
+    ownerId    String
+    ChatRoom   ChatRoom? @relation(fields: [chatRoomId], references: [id])
+    chatRoomId String?   @db.ObjectId
 }

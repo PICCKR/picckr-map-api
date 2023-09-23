@@ -1,0 +1,38 @@
+paths:
+  /api/decline:
+    post:
+      tags: [Decline]
+      summary: Save a new decline
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SaveDeclineInput"
+      responses:
+        200:
+          description: Decline Saved
+        500:
+          description: Error message
+
+components:
+  schemas:
+    SaveDeclineInput:
+      type: object
+      properties:
+        declinedBy:
+          type: string
+          description: DRIVER | SENDER | TIMEOUT
+        spentTime:
+          type: number
+          description: The spent time to decline
+        trackerId:
+          type: string (@objectId)
+          description: The tracker id
+        driverId:
+          type: string (@objectId)
+          description: The driver id
+      example:
+        declinedBy: "DRIVER"
+        spentTime: 10000
+        trackerId: "5f7b1b8a9d6b2a0017a0d1b1"
+        driverId: "5f7b1b8a9d6b2a0017a0d1c1"

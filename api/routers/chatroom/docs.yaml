@@ -1,0 +1,24 @@
+paths:
+  /api/chatroom:
+    post:
+      tags: [Chatroom]
+      summary: Open a new chatroom
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OpenChatroomInput"
+      responses:
+        200:
+          description: Created chatroom
+        500:
+          description: Error message
+
+components:
+  schemas:
+    OpenChatroomInput:
+      type: object
+      properties:
+        trackerId:
+          type: string (@objectId)
+          description: The tracker id
