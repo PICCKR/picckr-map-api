@@ -26,10 +26,10 @@ components:
           type: number
           description: The spent time to decline
         trackerId:
-          type: string (@objectId)
+          type: string
           description: The tracker id
         driverId:
-          type: string (@objectId)
+          type: string
           description: The driver id
       example:
         declinedBy: "DRIVER"

@@ -101,6 +101,6 @@ model Message {
     updatedAt  DateTime  @updatedAt
     content    String
     ownerId    String
-    ChatRoom   ChatRoom? @relation(fields: [chatRoomId], references: [id])
+    chatRoom   ChatRoom? @relation(fields: [chatRoomId], references: [id])
     chatRoomId String?   @db.ObjectId
 }

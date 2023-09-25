@@ -58,6 +58,22 @@ paths:
           description: Updated tracker
         500:
           description: Error message
+    get:
+      tags: [Tracker.Tracker]
+      summary: Get a tracker
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The tracker id
+          schema:
+            type: string
+          example: 6511d1d10764bc38955901b6
+      responses:
+        200:
+          description: Tracker
+        500:
+          description: Error message
 
 components:
   schemas:
