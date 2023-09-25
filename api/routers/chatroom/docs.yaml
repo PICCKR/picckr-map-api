@@ -1,7 +1,7 @@
 paths:
   /api/chatroom:
     post:
-      tags: [Tracker.Chatroom]
+      tags: [Chatroom]
       summary: Open a new chatroom
       requestBody:
         content:
@@ -14,7 +14,7 @@ paths:
         500:
           description: Error message
     get:
-      tags: [Tracker.Chatroom]
+      tags: [Chatroom]
       summary: Get all chatrooms
       responses:
         200:
@@ -23,7 +23,7 @@ paths:
           description: Error message
   /api/chatroom/trackerid/{id}:
     get:
-      tags: [Tracker.Chatroom]
+      tags: [Chatroom]
       summary: Get chatroom by tracker id
       parameters:
         - name: id
@@ -38,7 +38,7 @@ paths:
         500:
           description: Error message
     delete:
-      tags: [Tracker.Chatroom]
+      tags: [Chatroom]
       summary: Delete chatroom by tracker id
       parameters:
         - name: id

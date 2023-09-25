@@ -1,0 +1,64 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+const getAllDeclines = async (req, res) => {
+  try {
+    const declines = await prisma.decline.findMany();
+    res.status(200).json(declines);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getDeclinesByTrackerId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const decline = await prisma.decline.findMany({
+      where: {
+        trackerId: id,
+      },
+    });
+    res.status(200).json(decline);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getAllDeclinesByDriverId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const decline = await prisma.decline.findMany({
+      where: {
+        driverId: id,
+      },
+    });
+    res.status(200).json(decline);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getDeclineById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const decline = await prisma.decline.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).json(decline);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export {
+  getAllDeclines,
+  getDeclinesByTrackerId,
+  getAllDeclinesByDriverId,
+  getDeclineById,
+};

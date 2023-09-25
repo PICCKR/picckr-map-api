@@ -20,4 +20,19 @@ const saveDecline = async (req, res) => {
   }
 };
 
-export { saveDecline };
+const deleteDecline = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const decline = await prisma.decline.delete({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).json(decline);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { saveDecline, deleteDecline };

@@ -14,7 +14,7 @@ paths:
         500:
           description: Error message
     get:
-      tags: [Tracker.Tracker]
+      tags: [Tracker]
       summary: Get all trackers
       responses:
         200:
@@ -67,7 +67,7 @@ paths:
         500:
           description: Error message
     get:
-      tags: [Tracker.Tracker]
+      tags: [Tracker]
       summary: Get a tracker
       parameters:
         - name: id

@@ -13,6 +13,83 @@ paths:
           description: Decline Saved
         500:
           description: Error message
+    get:
+      tags: [Decline]
+      summary: Get all declines
+      responses:
+        200:
+          description: Declines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Decline"
+        500:
+          description: Error message
+  /api/decline/id/{id}:
+    delete:
+      tags: [Decline]
+      summary: Delete a decline
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The decline id
+          schema:
+            type: string
+          example: 6511d1d10764bc38955901b6
+      responses:
+        200:
+          description: Decline deleted
+        500:
+          description: Error message
+  /api/decline/trackerid/{id}:
+    get:
+      tags: [Decline]
+      summary: Get all declines by tracker id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The tracker id
+          schema:
+            type: string
+          example: 6511d1d10764bc38955901b6
+      responses:
+        200:
+          description: Declines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Decline"
+        500:
+          description: Error message
+  /api/decline/driverid/{id}:
+    get:
+      tags: [Decline]
+      summary: Get all declines by driver id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The driver id
+          schema:
+            type: string
+          example: 6511d1d10764bc38955901b6
+      responses:
+        200:
+          description: Declines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Decline"
+        500:
+          description: Error message
 
 components:
   schemas:
@@ -36,3 +113,35 @@ components:
         spentTime: 10000
         trackerId: "5f7b1b8a9d6b2a0017a0d1b1"
         driverId: "5f7b1b8a9d6b2a0017a0d1c1"
+    Decline:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The decline id
+        declinedBy:
+          type: string
+          description: DRIVER | SENDER | TIMEOUT
+        spentTime:
+          type: number
+          description: The spent time until decline
+        trackerId:
+          type: string
+          description: The tracker id
+        driverId:
+          type: string
+          description: The driver id
+        createdAt:
+          type: string
+          description: The decline created date
+        updatedAt:
+          type: string
+          description: The decline updated date
+      example:
+        _id: "5f7b1b8a9d6b2a0017a0d1b1"
+        declinedBy: "DRIVER"
+        spentTime: 10000
+        trackerId: "5f7b1b8a9d6b2a0017a0d1b1"
+        driverId: "5f7b1b8a9d6b2a0017a0d1c1"
+        createdAt: "2020-10-05T14:00:00.000Z"
+        updatedAt: "2020-10-05T14:00:00.000Z"
