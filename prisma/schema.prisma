@@ -75,6 +75,7 @@ model Decline {
     spentTime  Int
     trackerId  String
     driverId   String
+    senderId   String
     type       DeclineType?
 }
 
