@@ -62,14 +62,20 @@ enum DeclinedBy {
     TIMEOUT
 }
 
+enum DeclineType {
+    CANCEL
+    DISPUTE
+}
+
 model Decline {
-    id         String     @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt  DateTime   @default(now())
-    updatedAt  DateTime   @updatedAt
+    id         String       @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt  DateTime     @default(now())
+    updatedAt  DateTime     @updatedAt
     declinedBy DeclinedBy
     spentTime  Int
     trackerId  String
     driverId   String
+    type       DeclineType?
 }
 
 model Tracker {
