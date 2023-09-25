@@ -5,7 +5,7 @@ import http from "http";
 import { Server } from "socket.io";
 import routers from "./routers/index.js";
 import swaggerDocs from "./routers/swagger.js";
-import { sendMessage } from "./routers/chatroom/mutation.js";
+// import { sendMessage } from "./routers/chatroom/mutation.js";
 
 const app = express();
 dotenv.config();
