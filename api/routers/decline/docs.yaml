@@ -48,6 +48,33 @@ paths:
                 $ref: "#/components/schemas/Decline"
         500:
           description: Error message
+    patch:
+      tags: [Decline]
+      summary: Update a decline
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The decline id
+          schema:
+            type: string
+          example: 6511d1d10764bc38955901b6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: CANCEL | DISPUTE
+              example:
+                type: "DISPUTE"
+      responses:
+        200:
+          description: Decline updated
+        500:
+          description: Error message
     delete:
       tags: [Decline]
       summary: Delete a decline
@@ -110,6 +137,36 @@ paths:
                   $ref: "#/components/schemas/Decline"
         500:
           description: Error message
+  /api/decline/cancels:
+    get:
+      tags: [Decline]
+      summary: Get all declines with type CANCEL
+      responses:
+        200:
+          description: Declines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Decline"
+        500:
+          description: Error message
+  /api/decline/disputes:
+    get:
+      tags: [Decline]
+      summary: Get all declines with type DISPUTE
+      responses:
+        200:
+          description: Declines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Decline"
+        500:
+          description: Error message
 
 components:
   schemas:
@@ -151,12 +208,16 @@ components:
         driverId:
           type: string
           description: The driver id
+        type:
+          type: string
+          description: is it a CANCEL | DISPUTE (optional)
         createdAt:
           type: string
           description: The decline created date
         updatedAt:
           type: string
           description: The decline updated date
+
       example:
         _id: "5f7b1b8a9d6b2a0017a0d1b1"
         declinedBy: "DRIVER"
