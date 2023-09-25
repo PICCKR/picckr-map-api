@@ -28,6 +28,26 @@ paths:
         500:
           description: Error message
   /api/decline/id/{id}:
+    get:
+      tags: [Decline]
+      summary: Get a decline by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The decline id
+          schema:
+            type: string
+          example: 6511d1d10764bc38955901b6
+      responses:
+        200:
+          description: Decline
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Decline"
+        500:
+          description: Error message
     delete:
       tags: [Decline]
       summary: Delete a decline
