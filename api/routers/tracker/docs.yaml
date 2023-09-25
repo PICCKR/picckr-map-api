@@ -13,6 +13,14 @@ paths:
           description: Created tracker
         500:
           description: Error message
+    get:
+      tags: [Tracker.Tracker]
+      summary: Get all trackers
+      responses:
+        200:
+          description: Trackers list
+        500:
+          description: Error message
   /api/tracker/nearbydrivers/{max}:
     post:
       tags: [Tracker]

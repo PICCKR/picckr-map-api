@@ -57,4 +57,13 @@ const getTrackerById = async (req, res) => {
   }
 };
 
-export { findNearbyDrivers, getTrackerById };
+const getAllTrackers = async (req, res) => {
+  try {
+    const trackers = await prisma.tracker.findMany();
+    res.status(200).json(trackers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { findNearbyDrivers, getTrackerById, getAllTrackers };
