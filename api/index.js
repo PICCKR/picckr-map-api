@@ -34,23 +34,23 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", routers);
 
-io.on("connection", (socket) => {
-  console.log("A user connected, socket id: ", socket.id);
+// io.on("connection", (socket) => {
+//   console.log("A user connected, socket id: ", socket.id);
 
-  socket.on("disconnect", () => {
-    console.log("A user disconnected, socket id: ", socket.id);
-  });
+//   socket.on("disconnect", () => {
+//     console.log("A user disconnected, socket id: ", socket.id);
+//   });
 
-  // Handle custom events here
-  socket.on("send-message", async (messageData) => {
-    try {
-      let message = await sendMessage(messageData);
-      io.to(messageData.chatRoomId).emit("new-message", message);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-});
+//   // Handle custom events here
+//   socket.on("send-message", async (messageData) => {
+//     try {
+//       let message = await sendMessage(messageData);
+//       io.to(messageData.chatRoomId).emit("new-message", message);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   });
+// });
 
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT} in ${MODE} mode`);
