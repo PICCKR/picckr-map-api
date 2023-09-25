@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import http from "http";
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
 import routers from "./routers/index.js";
 import swaggerDocs from "./routers/swagger.js";
 // import { sendMessage } from "./routers/chatroom/mutation.js";
@@ -15,12 +15,12 @@ const MODE = process.env.MODE || "PROD";
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+// const io = new Server(server, {
+//   cors: {
+//     origin: "*",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
 app.use(
   cors({
