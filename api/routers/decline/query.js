@@ -101,6 +101,54 @@ const getAllDeclinesBySenderId = async (req, res) => {
   }
 };
 
+const getAllCancelsBySenderId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const cancel = await prisma.decline.findMany({
+      where: {
+        senderId: id,
+        type: "CANCEL",
+      },
+    });
+    res.status(200).json(cancel);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getAllDisputesBySenderId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const dispute = await prisma.decline.findMany({
+      where: {
+        senderId: id,
+        type: "DISPUTE",
+      },
+    });
+    res.status(200).json(dispute);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getAllCancelsByDriverId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const cancel = await prisma.decline.findMany({
+      where: {
+        driverId: id,
+        type: "CANCEL",
+      },
+    });
+    res.status(200).json(cancel);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export {
   getAllDeclines,
   getDeclinesByTrackerId,
@@ -109,4 +157,7 @@ export {
   getAllCancels,
   getAllDisputes,
   getAllDeclinesBySenderId,
+  getAllCancelsBySenderId,
+  getAllDisputesBySenderId,
+  getAllCancelsByDriverId,
 };
