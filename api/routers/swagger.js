@@ -42,7 +42,7 @@ const options = {
         description: "local",
       },
       {
-        url: "https://picckr-map-api.vercel.app/",
+        url: "https://picckr-tracking-api-stage.vercel.app/",
         description: "online",
       },
     ],
