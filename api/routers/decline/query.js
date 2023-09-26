@@ -86,6 +86,21 @@ const getAllDisputes = async (req, res) => {
   }
 };
 
+const getAllDeclinesBySenderId = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const decline = await prisma.decline.findMany({
+      where: {
+        senderId: id,
+      },
+    });
+    res.status(200).json(decline);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export {
   getAllDeclines,
   getDeclinesByTrackerId,
@@ -93,4 +108,5 @@ export {
   getDeclineById,
   getAllCancels,
   getAllDisputes,
+  getAllDeclinesBySenderId,
 };

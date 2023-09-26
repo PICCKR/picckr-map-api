@@ -185,11 +185,15 @@ components:
         driverId:
           type: string
           description: The driver id
+        senderId:
+          type: string
+          description: The sender id
       example:
         declinedBy: "DRIVER"
         spentTime: 10000
         trackerId: "5f7b1b8a9d6b2a0017a0d1b1"
         driverId: "5f7b1b8a9d6b2a0017a0d1c1"
+        senderId: "5f7b1b8a9d6b2a0017a0d1d2"
     Decline:
       type: object
       properties:
@@ -208,6 +212,9 @@ components:
         driverId:
           type: string
           description: The driver id
+        senderId:
+          type: string
+          description: The sender id
         type:
           type: string
           description: is it a CANCEL | DISPUTE (optional)
@@ -224,5 +231,6 @@ components:
         spentTime: 10000
         trackerId: "5f7b1b8a9d6b2a0017a0d1b1"
         driverId: "5f7b1b8a9d6b2a0017a0d1c1"
+        senderId: "5f7b1b8a9d6b2a0017a0d1d2"
         createdAt: "2020-10-05T14:00:00.000Z"
         updatedAt: "2020-10-05T14:00:00.000Z"

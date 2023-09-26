@@ -17,7 +17,7 @@ routers.use("/chatroom", chatRoomRouter);
 
 routers.get("/", (req, res) => {
   return res.json({
-    message: "Welcome to the PicckR Map API",
+    message: "Welcome to the PicckR Tracking API",
   });
 });
 

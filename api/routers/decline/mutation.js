@@ -3,15 +3,10 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const saveDecline = async (req, res) => {
-  const { declinedBy, spentTime, trackerId, driverId } = req.body;
-
   try {
     const declinedObject = await prisma.decline.create({
       data: {
-        declinedBy,
-        spentTime,
-        trackerId,
-        driverId,
+        ...req.body,
       },
     });
     res.status(201).json(declinedObject);
