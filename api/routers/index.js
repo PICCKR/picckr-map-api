@@ -5,6 +5,8 @@ import trackerRouter from "./tracker/index.js";
 import { SwaggerSpec } from "./swagger.js";
 import declineRouter from "./decline/index.js";
 import chatRoomRouter from "./chatroom/index.js";
+import pinCodeRouter from "./pinCode/index.js";
+import authRouter from "./auth/index.js";
 
 const routers = Router();
 
@@ -14,6 +16,8 @@ const __dirname = dirname(__filename);
 routers.use("/tracker", trackerRouter);
 routers.use("/decline", declineRouter);
 routers.use("/chatroom", chatRoomRouter);
+routers.use("/pincode", pinCodeRouter);
+routers.use("/auth", authRouter);
 
 routers.get("/", (req, res) => {
   return res.json({

@@ -204,3 +204,14 @@ DEFAULTS:
   - [ ] if it was all `available_drivers` then after the user selects one of them, should we ask the driver to `accept` or `decline` the order?
 - [ ] Does the driver have a profile picture in the map api db?
 - [ ] Does the driver have the right to rate a user?
+
+## FROM DESIGN
+
+https://picckr-tracking-api.vercel.app/api/
+
+### 1. AUTH
+
+- **Sign up by email | Default**: `POST` _/api/auth/signup_
+- **Login by phone number | Default**: `POST` _/api/auth/login_
+
+### 1. Request (To the driver)

@@ -1,0 +1,62 @@
+paths:
+  /api/pincode/:
+    post:
+      tags: [PinCode]
+      summary: Create a PinCode (PRIVATE)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePinCodeInput"
+      responses:
+        200:
+          description: PinCode Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PinCode"
+        400:
+          description: Error message
+
+components:
+  schemas:
+    CreatePinCodeInput:
+      type: object
+      properties:
+        code:
+          type: string
+          example: 123456
+        phone:
+          type: string
+          example: 1234567890
+        expiresAt:
+          type: string
+          format: date-time
+          example: 2024-01-01T00:00:00.000Z
+    PinCode:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 6511d1d10764bc38955901b6
+        code:
+          type: string
+          example: 123456
+        phone:
+          type: string
+          example: 1234567890
+        expiresAt:
+          type: string
+          format: date-time
+          example: 2024-01-01T00:00:00.000Z
+        used:
+          type: boolean
+          example: false
+        createdAt:
+          type: string
+          format: date-time
+          example: 2021-01-01T00:00:00.000Z
+        updatedAt:
+          type: string
+          format: date-time
+          example: 2021-01-01T00:00:00.000Z

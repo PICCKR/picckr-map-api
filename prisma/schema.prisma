@@ -7,45 +7,9 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-// enum Reply {
-//     REJECTED
-//     ACCEPTED
-// }
-
-// enum Status {
-//     CANCLED
-//     COMPLETED
-// }
-
-// model Order {
-//     id        String   @id @default(auto()) @map("_id") @db.ObjectId
-//     createdAt DateTime @default(now())
-//     updatedAt DateTime @updatedAt
-//     bookingId String   @unique @db.ObjectId
-//     driverId  String?  @db.ObjectId
-//     reply     Reply?
-//     status    Status?
-//     driver    Driver?  @relation(fields: [driverId], references: [id])
-// }
-
-// model Driver {
-//     id         String   @id @default(auto()) @map("_id") @db.ObjectId
-//     createdAt  DateTime @default(now())
-//     updatedAt  DateTime @updatedAt
-//     identifier String   @unique @db.ObjectId
-//     location   String
-//     orders     Order[]
-// }
-
 enum OrderStatus {
     REQUESTING
     PENDING
-    ACCEPTED_BY_DRIVER
-    ACCEPTED_BY_SENDER
-    DECLINED_BY_DRIVER
-    DECLINED_BY_SENDER
-    CANCELED_BY_DRIVER
-    CANCELED_BY_SENDER
     COMPLETED
 }
 
@@ -65,6 +29,115 @@ enum DeclinedBy {
 enum DeclineType {
     CANCEL
     DISPUTE
+}
+
+enum Role {
+    ADMIN
+    DRIVER
+    USER
+}
+
+enum UserStatus {
+    ONLINE
+    OFFLINE
+    ON_RIDE
+}
+
+enum Country {
+    USA
+    NIGERIA
+}
+
+model User {
+    id         String     @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+    fullName   String
+    country    Country
+    phone      String     @unique
+    password   String
+    isVerified Boolean    @default(false)
+    role       Role       @default(USER)
+    status     UserStatus @default(OFFLINE)
+    active     Boolean    @default(true)
+
+    // firstName     String
+    // lastName      String
+    // username      String     @unique
+    // phone         String     @unique
+    // phoneVerified Boolean    @default(false)
+    // mode          String?
+    // cognitoId     String?
+    // userRole      Role       @default(USER)
+    // email         String?
+    // status        UserStatus @default(OFFLINE)
+    // activated     Boolean    @default(true)
+    // picture       String?
+}
+
+model PinCode {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    phone     String
+    code      Int
+    expiresAt DateTime
+    used      Boolean  @default(false)
+}
+
+model Address {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    address   String
+    city      String
+    state     String
+    country   String
+    zipCode   String
+    location  String
+}
+
+model PhoneVerification {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    phone     String   @unique
+    code      String
+    expiredAt DateTime
+    used      Boolean  @default(false)
+}
+
+model Vehicle {
+    id        String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    picture   String
+    capacity  Int?
+}
+
+model Booking {
+    id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt           DateTime @default(now())
+    updatedAt           DateTime @updatedAt
+    senderId            String
+    category            String
+    specialInstructions String
+}
+
+model Package {
+    id                String   @id @default(auto()) @map("_id") @db.ObjectId
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
+    senderId          String
+    bookingId         String
+    senderLocation    String
+    recipientLocation String
+    weight            Int
+    dimensions        String
+    type              String
+    pickUpDate        DateTime
+    // vehicleType 
 }
 
 model Decline {
