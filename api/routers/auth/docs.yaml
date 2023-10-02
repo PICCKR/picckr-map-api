@@ -1,0 +1,138 @@
+paths:
+  /api/auth/:
+    post:
+      tags: [Auth]
+      summary: Sign up with phone and password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUpInput"
+      responses:
+        200:
+          description: OK
+        400:
+          description: Error thrown
+  /api/auth/verify:
+    post:
+      tags: [Auth]
+      summary: Verify phone number
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerifyInput"
+      responses:
+        200:
+          description: OK
+        400:
+          description: Error thrown
+  /api/auth/login:
+    post:
+      tags: [Auth]
+      summary: Login with phone and password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignInInput"
+      responses:
+        200:
+          description: OK
+        400:
+          description: Error thrown
+  /api/auth/forgot-password:
+    post:
+      tags: [Auth]
+      summary: Forgot password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ForgotPasswordInput"
+      responses:
+        200:
+          description: OK
+        400:
+          description: Error thrown
+  /api/auth/reset-password:
+    post:
+      tags: [Auth]
+      summary: Reset password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetPasswordInput"
+      responses:
+        200:
+          description: OK
+        400:
+          description: Error thrown
+
+components:
+  schemas:
+    SignUpInput:
+      type: object
+      properties:
+        phone:
+          type: string
+          example: "+212672628744"
+        password:
+          type: string
+          example: Hi@jk12345
+        fullName:
+          type: string
+          example: John Doe
+      required:
+        - phone
+        - password
+        - fullName
+    VerifyInput:
+      type: object
+      properties:
+        phone:
+          type: string
+          example: "+212672628744"
+        code:
+          type: string
+          example: "123456"
+      required:
+        - phone
+        - code
+    SignInInput:
+      type: object
+      properties:
+        phone:
+          type: string
+          example: "+212672628744"
+        password:
+          type: string
+          example: Hi@jk12345
+      required:
+        - phone
+        - password
+    ForgotPasswordInput:
+      type: object
+      properties:
+        phone:
+          type: string
+          example: "+212672628744"
+      required:
+        - phone
+    ResetPasswordInput:
+      type: object
+      properties:
+        phone:
+          type: string
+          example: "+212672628744"
+        code:
+          type: string
+          example: "123456"
+        newPassword:
+          type: string
+          example: Hi@kkjk12345
+      required:
+        - phone
+        - code
+        - newPassword

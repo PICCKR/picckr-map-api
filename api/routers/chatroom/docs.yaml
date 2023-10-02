@@ -13,6 +13,45 @@ paths:
           description: Created chatroom
         500:
           description: Error message
+    get:
+      tags: [Chatroom]
+      summary: Get all chatrooms
+      responses:
+        200:
+          description: All chatrooms
+        500:
+          description: Error message
+  /api/chatroom/trackerid/{id}:
+    get:
+      tags: [Chatroom]
+      summary: Get chatroom by tracker id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The tracker id
+          schema:
+            type: string
+      responses:
+        200:
+          description: The chatroom object
+        500:
+          description: Error message
+    delete:
+      tags: [Chatroom]
+      summary: Delete chatroom by tracker id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The tracker id
+          schema:
+            type: string
+      responses:
+        200:
+          description: The deleted chatroom object
+        500:
+          description: Error message
 
 components:
   schemas:
@@ -20,5 +59,45 @@ components:
       type: object
       properties:
         trackerId:
-          type: string (@objectId)
+          type: string
           description: The tracker id
+    ChatRoom:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The chatroom id
+        trackerId:
+          type: string
+          description: The tracker id
+        createdAt:
+          type: string
+          description: The chatroom creation date
+        updatedAt:
+          type: string
+          description: The chatroom last update date
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/Message"
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The message id
+        createdAt:
+          type: string
+          description: The message creation date
+        updatedAt:
+          type: string
+          description: The message last update date
+        content:
+          type: string
+          description: The message content
+        ownerId:
+          type: string
+          description: The message owner id
+        chatroomId:
+          type: string
+          description: The message chatroom id
